@@ -1,26 +1,38 @@
-﻿using System;
+using System;
+using System.IO;
+
 namespace CatandMouseGame;
+
 class Program
 {
     static void Main(string[] args)
     {
         string baseDir = AppContext.BaseDirectory;
 
-        for (int i = 1; i <= 3; i++)
+        while (true)
         {
-            string inFile = Path.Combine(baseDir, $"{i}.ChaseData.txt");
-            string outFile = Path.Combine(baseDir, $"{i}.PursuitLog.txt");
+            Console.Write("Введите номер файла для обработки (или 'exit' для выхода): ");
+            string input = Console.ReadLine();
+
+            if (input?.ToLower() == "exit") break;
+            if (string.IsNullOrWhiteSpace(input)) continue;
+
+            string inFile = Path.Combine(baseDir, $"{input}.ChaseData.txt");
+            string outFile = Path.Combine(baseDir, $"{input}.PursuitLog.txt");
+
             if (!File.Exists(inFile))
             {
-                Console.WriteLine("Skip: {0} not found", inFile);
+                Console.WriteLine($"Файл {inFile} не найден! Попробуйте еще раз.");
                 continue;
             }
+
             int size = int.Parse(File.ReadAllLines(inFile)[0].Trim());
             Game.InputFile = inFile;
             Game.OutFile = outFile;
             var game = new Game(size);
             game.Run();
-            Console.WriteLine("Test {0} done -> {1}", i, outFile);
+
+            Console.WriteLine($"Тест {input} выполнен -> {outFile}\n");
         }
     }
 }
