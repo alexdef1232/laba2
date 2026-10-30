@@ -17,10 +17,14 @@ public class Player
     private bool _started = false;
 
     public Player(string name, int fieldSize)
-    {
-        Name = name;
-        _fieldSize = fieldSize;
-    }
+  {
+      if (fieldSize <= 0 || fieldSize > 10000)
+          throw new ArgumentOutOfRangeException(nameof(fieldSize));
+
+      Name = name;
+      _fieldSize = fieldSize;
+  }
+
 
     public void Move(int steps)
     {
