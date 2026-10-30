@@ -7,7 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string baseDir = AppContext.BaseDirectory;
+        string baseDir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
 
         while (true)
         {
