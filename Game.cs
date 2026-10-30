@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +19,13 @@ public class Game
 
     public Game(int size)
     {
+        if (size <= 0 || size > 10000)
+        throw new ArgumentOutOfRangeException(nameof(size));
         _size = size;
         _cat = new Player("Cat", size);
         _mouse = new Player("Mouse", size);
         _state = GameState.Start;
     }
-
     public void Run()
     {
         _output.Add("Cat and Mouse");
@@ -118,3 +119,4 @@ public class Game
         return false;
     }
 }
+
